@@ -19,7 +19,7 @@ public class ProprietaireService extends EntityService {
 	 * @param numero integer
 	 */
 	public Proprietaire consulterProprietaire(int numero) throws MonException {
-		return null;
+		return new Proprietaire();
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class ProprietaireService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Proprietaire> consulterListeProprietaires() throws MonException {
-		return null;
+		return new ArrayList<Proprietaire>();
 	}
 
 	/**
@@ -39,6 +39,6 @@ public class ProprietaireService extends EntityService {
 	 * @throws MonException
 	 */
 	private List<Proprietaire> consulterListeProprietaires(String mysql) throws MonException {
-		return null;
+		return new ArrayList<Proprietaire>();
 	}
 }

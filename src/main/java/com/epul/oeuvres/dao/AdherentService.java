@@ -37,7 +37,7 @@ public class AdherentService extends EntityService {
 	 * @param numero integer
 	 */
 	public Adherent consulterAdherent(int numero) throws MonException {
-		return null;
+		return new Adherent();
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class AdherentService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Adherent> consulterListeAdherents() throws MonException {
-		return null;
+		return new ArrayList<Adherent>();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class AdherentService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Adherent> consulterListeAdherents(int page, int nombreParPage) throws MonException {
-		return null;
+		return new ArrayList<Adherent>();
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class AdherentService extends EntityService {
 	 * @throws MonException
 	 */
 	private List<Adherent> consulterListeAdherents(String mysql) throws MonException {
-		return null;
+		return new ArrayList<Adherent>();
 	}
 
 	/**

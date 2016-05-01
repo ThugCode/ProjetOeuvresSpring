@@ -53,7 +53,7 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = LISTE+RESERVATION)
+	@RequestMapping(value = RESERVATION+"/"+LISTE+RESERVATION)
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String destinationPage;
@@ -106,7 +106,7 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = AJOUTER+RESERVATION)
+	@RequestMapping(value = RESERVATION+"/"+AJOUTER+RESERVATION)
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
@@ -150,7 +150,7 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = MODIFIER+RESERVATION)
+	@RequestMapping(value = RESERVATION+"/"+MODIFIER+RESERVATION)
 	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
@@ -197,10 +197,10 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = INSERER+RESERVATION)
+	@RequestMapping(value = RESERVATION+"/"+INSERER+RESERVATION)
 	public ModelAndView insertNewObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = "index";
+		String destinationPage = LISTE+RESERVATION;
 		try {
 			
 			ReservationService service = new ReservationService();
@@ -250,7 +250,7 @@ public class ReservationControleur extends MultiActionController {
 			destinationPage = "erreur";
 		}
 		
-		return new ModelAndView(destinationPage);
+		return new ModelAndView("redirect:"+destinationPage);
 	}
 	
 	/**
@@ -260,23 +260,21 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = SUPPRIMER+RESERVATION)
+	@RequestMapping(value = RESERVATION+"/"+SUPPRIMER+RESERVATION)
 	protected ModelAndView deleteObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = "";
+		String destinationPage = LISTE+RESERVATION;
 		try {
 			ReservationService service = new ReservationService();
 			int idOeuvre = Integer.parseInt(request.getParameter("idSelected"));
 			int idAdherent = Integer.parseInt(request.getParameter("idSelected2"));
 			service.deleteReservation(idOeuvre, idAdherent);
 			
-			destinationPage = LISTE+RESERVATION;
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
 			destinationPage = "erreur";
 		}
 		
-		destinationPage = "index";
-		return new ModelAndView(destinationPage);
+		return new ModelAndView("redirect:"+destinationPage);
 	}
 }

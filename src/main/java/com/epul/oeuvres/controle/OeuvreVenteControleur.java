@@ -48,7 +48,7 @@ public class OeuvreVenteControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = LISTE+OEUVREVENTE)
+	@RequestMapping(value = OEUVREVENTE+"/"+LISTE+OEUVREVENTE)
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String destinationPage;
@@ -101,7 +101,7 @@ public class OeuvreVenteControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = AJOUTER+OEUVREVENTE)
+	@RequestMapping(value = OEUVREVENTE+"/"+AJOUTER+OEUVREVENTE)
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
@@ -132,7 +132,7 @@ public class OeuvreVenteControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = MODIFIER+OEUVREVENTE)
+	@RequestMapping(value = OEUVREVENTE+"/"+MODIFIER+OEUVREVENTE)
 	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
@@ -167,10 +167,10 @@ public class OeuvreVenteControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = INSERER+OEUVREVENTE)
+	@RequestMapping(value = OEUVREVENTE+"/"+INSERER+OEUVREVENTE)
 	public ModelAndView insertNewObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = "index";
+		String destinationPage = LISTE+OEUVREVENTE;
 		try {
 			
 			OeuvreVenteService service = new OeuvreVenteService();
@@ -206,7 +206,7 @@ public class OeuvreVenteControleur extends MultiActionController {
 			destinationPage = "erreur";
 		}
 		
-		return new ModelAndView(destinationPage);
+		return new ModelAndView("redirect:"+destinationPage);
 	}
 	
 	/**
@@ -216,22 +216,19 @@ public class OeuvreVenteControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = SUPPRIMER+OEUVREVENTE)
+	@RequestMapping(value = OEUVREVENTE+"/"+SUPPRIMER+OEUVREVENTE)
 	protected ModelAndView deleteObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = "";
+		String destinationPage = LISTE+OEUVREVENTE;
 		try {
 			OeuvreVenteService service = new OeuvreVenteService();
 			int id = Integer.parseInt(request.getParameter("idSelected"));
 			service.deleteOeuvreVente(id);
-			
-			destinationPage = LISTE+OEUVREVENTE;
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
 			destinationPage = "erreur";
 		}
 		
-		destinationPage = "index";
-		return new ModelAndView(destinationPage);
+		return new ModelAndView("redirect:"+destinationPage);
 	}
 }

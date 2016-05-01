@@ -48,6 +48,9 @@ public class MultiControleur extends MultiActionController {
 		return new ModelAndView("erreur");
 	}
 	
-	
+	@RequestMapping(value = "informations", method = RequestMethod.GET)
+	public ModelAndView AfficheInformations(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return new ModelAndView("informations");
+	}
 
 }

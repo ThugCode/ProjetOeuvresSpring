@@ -37,7 +37,7 @@ public class OeuvreVenteService extends EntityService {
 	 * @param numero integer
 	 */
 	public Oeuvrevente consulterOeuvrevente(int numero) throws MonException {
-		return null;
+		return new Oeuvrevente();
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class OeuvreVenteService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Oeuvrevente> consulterListeOeuvresVentes() throws MonException {
-		return null;
+		return new ArrayList<Oeuvrevente>();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class OeuvreVenteService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Oeuvrevente> consulterListeOeuvresVentes(int page, int nombreParPage) throws MonException {
-		return null;
+		return new ArrayList<Oeuvrevente>();
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class OeuvreVenteService extends EntityService {
 	 * @throws MonException
 	 */
 	private List<Oeuvrevente> consulterListeOeuvresVentes(String mysql) throws MonException {
-		return null;
+		return new ArrayList<Oeuvrevente>();
 	}
 	
 	/**

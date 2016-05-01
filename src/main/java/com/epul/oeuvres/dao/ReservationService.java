@@ -39,7 +39,7 @@ public class ReservationService extends EntityService {
 	 * @param numero integer
 	 */
 	public Reservation consulterReservation(int idOeuvreVente, int idAdherent) throws MonException {
-		return null;
+		return new Reservation();
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Reservation> consulterListeReservations() throws MonException {
-		return null;
+		return new ArrayList<Reservation>();
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Reservation> consulterListeReservations(int page, int nombreParPage) throws MonException {
-		return null;
+		return new ArrayList<Reservation>();
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	private List<Reservation> consulterListeReservations(String mysql) throws MonException {
-		return null;
+		return new ArrayList<Reservation>();
 	}
 	
 	/**

@@ -39,7 +39,7 @@ public class AdherentControleur extends MultiActionController {
 		super();
 	}
 
-	@RequestMapping(value = LISTE+ADHERENT)
+	@RequestMapping(value = ADHERENT+"/"+LISTE+ADHERENT)
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String destinationPage;
@@ -92,7 +92,7 @@ public class AdherentControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = AJOUTER+ADHERENT)
+	@RequestMapping(value = ADHERENT+"/"+AJOUTER+ADHERENT)
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
@@ -117,7 +117,7 @@ public class AdherentControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = MODIFIER+ADHERENT)
+	@RequestMapping(value = ADHERENT+"/"+MODIFIER+ADHERENT)
 	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
@@ -145,10 +145,10 @@ public class AdherentControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = INSERER+ADHERENT)
+	@RequestMapping(value = ADHERENT+"/"+INSERER+ADHERENT)
 	public ModelAndView insertNewObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = "index";
+		String destinationPage = LISTE+ADHERENT;
 		try {
 			AdherentService unService = new AdherentService();
 			
@@ -179,7 +179,7 @@ public class AdherentControleur extends MultiActionController {
 			destinationPage = "erreur";
 		}
 		
-		return new ModelAndView(destinationPage);
+		return new ModelAndView("redirect:"+destinationPage);
 	}
 	
 	/**
@@ -189,21 +189,19 @@ public class AdherentControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = SUPPRIMER+ADHERENT)
+	@RequestMapping(value = ADHERENT+"/"+SUPPRIMER+ADHERENT)
 	protected ModelAndView deleteObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = "";
+		String destinationPage = LISTE+ADHERENT;
 		try {
 			AdherentService unService = new AdherentService();
 			int id = Integer.parseInt(request.getParameter("idSelected"));
 			unService.deleteAdherent(id);
-			destinationPage = LISTE+ADHERENT;
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
 			destinationPage = "erreur";
 		}
 		
-		destinationPage = "index";
-		return new ModelAndView(destinationPage);
+		return new ModelAndView("redirect:"+destinationPage);
 	}
 }

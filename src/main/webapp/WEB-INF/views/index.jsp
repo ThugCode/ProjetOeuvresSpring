@@ -4,14 +4,14 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		<link href="css/index.css" rel="stylesheet" type="text/css" />
+		<link href="<%=request.getContextPath()%>/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="<%=request.getContextPath()%>/resources/css/index.css" rel="stylesheet" type="text/css" />
 		
-		<script src="lib/jquery/jquery-2.2.0.min.js"></script>
-		<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-		<script src="js/index.js"></script>
+		<script src="<%=request.getContextPath()%>/resources/lib/jquery/jquery-2.2.0.min.js"></script>
+		<script src="<%=request.getContextPath()%>/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script src="<%=request.getContextPath()%>/resources/js/index.js"></script>
 
-		<link rel="icon" type="image/png" href="img/favicon.ico" />
+		<link rel="icon" type="image/png" href="<%=request.getContextPath()%>/resources/img/favicon.ico" />
 		<title>Accueil</title>
 	</head>
 	
@@ -31,11 +31,11 @@
 			</svg>
 			</a>
 			
-			<a href="Adherent?action=liste">
+			<a href="Adherent/listeAdherent">
 			<svg class="hexagone" viewbox="5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgUser" patternUnits="userSpaceOnUse" width="100" height="100">
-						<image xlink:href="img/user.png" x="-25" width="150" height="100" />
+						<image xlink:href="<%=request.getContextPath()%>/resources/img/user.png" x="-25" width="150" height="100" />
 					</pattern>
 				</defs>
 				<polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#imgUser)"/>
@@ -44,11 +44,11 @@
 			</svg>
 			</a>
 			
-			<a href="OeuvreVente?action=liste">
+			<a href="OeuvreVente/listeOeuvreVente">
 			<svg class="hexagone rightHexagone" viewbox="-5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgVente" patternUnits="userSpaceOnUse" width="100" height="100">
-						<image xlink:href="img/vente.png" x="-25" width="150" height="100" />
+						<image xlink:href="<%=request.getContextPath()%>/resources/img/vente.png" x="-25" width="150" height="100" />
 					</pattern>
 				</defs>
 				<polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#imgVente)"/>
@@ -57,22 +57,22 @@
 			</svg>
 			</a>
 			
-			<a href="informations.jsp">
+			<a href="informations">
 			<svg id="hexagoneChat" viewbox="-25 0 150 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="img" patternUnits="userSpaceOnUse" width="100" height="100">
-						<image id="imgChat" xlink:href="img/cote.png" x="-25" width="150" height="100" />
+						<image id="imgChat" xlink:href="<%=request.getContextPath()%>/resources/img/cote.png" x="-25" width="150" height="100" />
 					</pattern>
 				</defs>
 				<polygon id="hexChat" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img)"/>
 			</svg>
 			</a>
 
-			<a href="OeuvrePret?action=liste">
+			<a href="OeuvrePret/listeOeuvrePret">
 			<svg class="hexagone" viewbox="5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgEchange" patternUnits="userSpaceOnUse" width="100" height="100">
-						<image xlink:href="img/echange.png" x="-25" width="150" height="100" />
+						<image xlink:href="<%=request.getContextPath()%>/resources/img/echange.png" x="-25" width="150" height="100" />
 					</pattern>
 				</defs>
 				<polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#imgEchange)"/>
@@ -81,11 +81,11 @@
 			</svg>
 			</a>
 			
-			<a href="Reservation?action=liste">
+			<a href="Reservation/listeReservation">
 			<svg class="hexagone rightHexagone" viewbox="-5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgReservation" patternUnits="userSpaceOnUse" width="100" height="100">
-						<image xlink:href="img/reservation.png" x="-25" width="150" height="100" />
+						<image xlink:href="<%=request.getContextPath()%>/resources/img/reservation.png" x="-25" width="150" height="100" />
 					</pattern>
 				</defs>
 				<polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#imgReservation)"/>

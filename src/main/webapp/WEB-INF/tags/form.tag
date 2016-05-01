@@ -12,14 +12,14 @@
 		<strong>Erreur !</strong> <span id="dynamicText"></span>
 	</div>
 
-	<form class="form-horizontal" method="post" action="${classe}?action=inserer" onsubmit="return checkFields()">
+	<form class="form-horizontal" method="post" action="inserer${classe}" onsubmit="return checkFields()">
 		
 		<div class="form-body">
 			<jsp:doBody/>
 		</div>
 		
 		<div class="buttonForm">
-			<a type="button" class="btn btn-danger" href="${classe}?action=liste">Annuler</a>
+			<a type="button" class="btn btn-danger" href="liste${classe}">Annuler</a>
 			<button type="submit" name="bt" class="btn btn-submit">${action}</button>
 		</div>
 	</form>

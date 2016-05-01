@@ -1,7 +1,7 @@
 function initHover() {
 	
-	$("#hexChat").mouseover( function() { $('#imgChat').attr('xlink:href',"img/face.png"); } );
-	$("#hexChat").mouseleave( function() { $('#imgChat').attr('xlink:href',"img/cote.png"); } );
+	$("#hexChat").mouseover( function() { $('#imgChat').attr('xlink:href',"resources/img/face.png"); } );
+	$("#hexChat").mouseleave( function() { $('#imgChat').attr('xlink:href',"resources/img/cote.png"); } );
 	
 	$(".hexagone").mouseover( showText );
 	$(".hexagone").mouseleave( hideText );

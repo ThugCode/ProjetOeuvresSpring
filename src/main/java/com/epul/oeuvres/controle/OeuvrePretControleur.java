@@ -47,7 +47,7 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = LISTE+OEUVREPRET)
+	@RequestMapping(value = OEUVREPRET+"/"+LISTE+OEUVREPRET)
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String destinationPage;
@@ -93,8 +93,6 @@ public class OeuvrePretControleur extends MultiActionController {
 		return new ModelAndView(destinationPage);
 	}
 	
-	
-	
 	/**
 	 * Affichage du formulaire d'ajout
 	 * @param request
@@ -102,7 +100,7 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = AJOUTER+OEUVREPRET)
+	@RequestMapping(value = OEUVREPRET+"/"+AJOUTER+OEUVREPRET)
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
@@ -133,7 +131,7 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = MODIFIER+OEUVREPRET)
+	@RequestMapping(value = OEUVREPRET+"/"+MODIFIER+OEUVREPRET)
 	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
@@ -168,10 +166,10 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = INSERER+OEUVREPRET)
+	@RequestMapping(value = OEUVREPRET+"/"+INSERER+OEUVREPRET)
 	public ModelAndView insertNewObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = "index";
+		String destinationPage = LISTE+OEUVREPRET;
 		try {
 			
 			OeuvrePretService service = new OeuvrePretService();
@@ -206,7 +204,7 @@ public class OeuvrePretControleur extends MultiActionController {
 			destinationPage = "erreur";
 		}
 		
-		return new ModelAndView(destinationPage);
+		return new ModelAndView("redirect:"+destinationPage);
 	}
 	
 	/**
@@ -216,21 +214,20 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = SUPPRIMER+OEUVREPRET)
+	@RequestMapping(value = OEUVREPRET+"/"+SUPPRIMER+OEUVREPRET)
 	protected ModelAndView deleteObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = "";
+		String destinationPage = LISTE+OEUVREPRET;
 		try {
 			OeuvrePretService service = new OeuvrePretService();
 			int id = Integer.parseInt(request.getParameter("idSelected"));
 			service.deleteOeuvrePret(id);
-			destinationPage = LISTE+OEUVREPRET;
+
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
 			destinationPage = "erreur";
 		}
 		
-		destinationPage = "index";
-		return new ModelAndView(destinationPage);
+		return new ModelAndView("redirect:"+destinationPage);
 	}
 }
