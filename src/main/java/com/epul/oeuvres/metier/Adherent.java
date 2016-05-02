@@ -2,8 +2,6 @@ package com.epul.oeuvres.metier;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
-
 
 /**
  * The persistent class for the adherent database table.
@@ -28,12 +26,7 @@ public class Adherent implements Serializable {
 	@Column(name="ville_adherent")
 	private String villeAdherent;
 
-	//bi-directional many-to-one association to Reservation
-	@OneToMany(mappedBy="adherent")
-	private List<Reservation> reservations;
-
-	public Adherent() {
-	}
+	public Adherent() {}
 
 	public int getIdAdherent() {
 		return this.idAdherent;
@@ -67,25 +60,13 @@ public class Adherent implements Serializable {
 		this.villeAdherent = villeAdherent;
 	}
 
-	public List<Reservation> getReservations() {
-		return this.reservations;
-	}
-
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
-	}
-
 	public Reservation addReservation(Reservation reservation) {
-		getReservations().add(reservation);
 		reservation.setAdherent(this);
-
 		return reservation;
 	}
 
 	public Reservation removeReservation(Reservation reservation) {
-		getReservations().remove(reservation);
 		reservation.setAdherent(null);
-
 		return reservation;
 	}
 

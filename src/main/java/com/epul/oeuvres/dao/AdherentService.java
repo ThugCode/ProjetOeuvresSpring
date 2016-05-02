@@ -32,7 +32,12 @@ public class AdherentService extends EntityService {
 	 */
 	public void updateAdherent(Adherent adherent) throws MonException {
 		
-		
+		EntityTransaction transaction = startTransaction();
+        transaction.begin();
+        entitymanager.merge(adherent);
+        transaction.commit();
+        entitymanager.close();
+        emf.close();
 	}
 
 	/**

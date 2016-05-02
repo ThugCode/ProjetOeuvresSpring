@@ -12,7 +12,7 @@
 		<strong>Erreur !</strong> <span id="dynamicText"></span>
 	</div>
 
-	<form class="form-horizontal" method="post" action="inserer" onsubmit="return checkFields()">
+	<form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/${classe}/inserer" onsubmit="return checkFields()">
 		
 		<div class="form-body">
 			<jsp:doBody/>
