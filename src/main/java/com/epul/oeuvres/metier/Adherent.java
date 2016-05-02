@@ -16,7 +16,7 @@ public class Adherent implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_adherent")
+	@Column(name="id_adherent", insertable = false, updatable = false)
 	private int idAdherent;
 
 	@Column(name="nom_adherent")
