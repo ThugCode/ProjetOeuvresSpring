@@ -25,7 +25,7 @@
 						<tr>
 							<td>${item.idOeuvrepret}</td>
 							<td>${item.titreOeuvrepret}</td>
-			                <td>TODO</td>
+			                <td>${item.proprietaire.nomProprietaire} ${item.proprietaire.prenomProprietaire}</td>
 			                <td class="actionCol">
 			                	<a type="button" class="btn self-border" title="Effectuer un prêt" disabled="disabled" href="#">
 			               			<span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>

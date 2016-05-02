@@ -29,7 +29,7 @@
 							<td>${item.titreOeuvrevente}</td>
 							<td>${item.etatOeuvrevente}</td>
 			                <td>${item.prixOeuvrevente}</td>
-			                <td>TODO</td>
+			                <td>${item.proprietaire.nomProprietaire} ${item.proprietaire.prenomProprietaire}</td>
 			                <td class="actionCol">
 			                	<a type="button" class="btn self-border" title="Effectuer une vente" href="${pageContext.request.contextPath}/Reservation/ajouter/${item.idOeuvrevente}">
 			               			<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>

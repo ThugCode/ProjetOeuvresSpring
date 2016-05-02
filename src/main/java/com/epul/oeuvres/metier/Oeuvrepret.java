@@ -21,13 +21,11 @@ public class Oeuvrepret implements Serializable {
 	@Column(name="titre_oeuvrepret")
 	private String titreOeuvrepret;
 
-	//bi-directional many-to-one association to Proprietaire
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_proprietaire")
 	private Proprietaire proprietaire;
 
-	public Oeuvrepret() {
-	}
+	public Oeuvrepret() {}
 
 	public int getIdOeuvrepret() {
 		return this.idOeuvrepret;

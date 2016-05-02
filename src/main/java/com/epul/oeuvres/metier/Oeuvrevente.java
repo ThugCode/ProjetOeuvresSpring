@@ -2,7 +2,6 @@ package com.epul.oeuvres.metier;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -28,17 +27,11 @@ public class Oeuvrevente implements Serializable {
 	@Column(name="titre_oeuvrevente")
 	private String titreOeuvrevente;
 
-	//bi-directional many-to-one association to Proprietaire
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_proprietaire")
 	private Proprietaire proprietaire;
 
-	//bi-directional many-to-one association to Reservation
-	@OneToMany(mappedBy="oeuvrevente")
-	private List<Reservation> reservations;
-
-	public Oeuvrevente() {
-	}
+	public Oeuvrevente() {}
 
 	public int getIdOeuvrevente() {
 		return this.idOeuvrevente;
@@ -80,25 +73,13 @@ public class Oeuvrevente implements Serializable {
 		this.proprietaire = proprietaire;
 	}
 
-	public List<Reservation> getReservations() {
-		return this.reservations;
-	}
-
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
-	}
-
 	public Reservation addReservation(Reservation reservation) {
-		getReservations().add(reservation);
 		reservation.setOeuvrevente(this);
-
 		return reservation;
 	}
 
 	public Reservation removeReservation(Reservation reservation) {
-		getReservations().remove(reservation);
 		reservation.setOeuvrevente(null);
-
 		return reservation;
 	}
 

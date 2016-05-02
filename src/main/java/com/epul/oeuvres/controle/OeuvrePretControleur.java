@@ -52,44 +52,38 @@ public class OeuvrePretControleur extends MultiActionController {
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String destinationPage = LISTE+OEUVREPRET;
-		try {
-			
-			page = 1;
-			nombreParPage = 5;
-			if(request.getParameter("currentPage") != null 
-			&& request.getParameter("currentPage") != "") {
-				page = Integer.parseInt(request.getParameter("currentPage"));
-			}
-			if(request.getParameter("currentNumberPerPage") != null 
-			&& request.getParameter("currentNumberPerPage") != "") {
-				nombreParPage = Integer.parseInt(request.getParameter("currentNumberPerPage"));
-			}
-			
-			request.setAttribute("currentPage", page);
-			request.setAttribute("currentNumberPerPage", nombreParPage);
-			request.setAttribute("vue", LISTE);
-			
-			OeuvrePretService service = new OeuvrePretService();
-			List<Oeuvrepret> listeTotal = service.consulterListeOeuvresPret();
-			float nombreOeuvre = Float.parseFloat(listeTotal.size()+"");
-			int nombrePage = (int) Math.ceil(nombreOeuvre/nombreParPage);
-			request.setAttribute("nbPage", nombrePage);
-			request.setAttribute("tabTitle", "Liste des prêts");
-			//request.setAttribute("module", LISTE+OEUVREPRET);
-			
-			if(Integer.parseInt(request.getAttribute("currentPage").toString()) > nombrePage) {
-				page = 1;
-				request.setAttribute("currentPage", page);
-			}
-			
-			List<Oeuvrepret> liste = service.consulterListeOeuvresPret((int)page-1,(int)nombreParPage);
-			request.setAttribute("oeuvres", liste);
-			
-		} catch (MonException e) {
-			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
-
+		
+		page = 1;
+		nombreParPage = 5;
+		if(request.getParameter("currentPage") != null 
+		&& request.getParameter("currentPage") != "") {
+			page = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		if(request.getParameter("currentNumberPerPage") != null 
+		&& request.getParameter("currentNumberPerPage") != "") {
+			nombreParPage = Integer.parseInt(request.getParameter("currentNumberPerPage"));
+		}
+		
+		request.setAttribute("currentPage", page);
+		request.setAttribute("currentNumberPerPage", nombreParPage);
+		request.setAttribute("vue", LISTE);
+		
+		OeuvrePretService service = new OeuvrePretService();
+		List<Oeuvrepret> listeTotal = service.consulterListeOeuvresPret();
+		float nombreOeuvre = Float.parseFloat(listeTotal.size()+"");
+		int nombrePage = (int) Math.ceil(nombreOeuvre/nombreParPage);
+		request.setAttribute("nbPage", nombrePage);
+		request.setAttribute("tabTitle", "Liste des prêts");
+		//request.setAttribute("module", LISTE+OEUVREPRET);
+		
+		if(Integer.parseInt(request.getAttribute("currentPage").toString()) > nombrePage) {
+			page = 1;
+			request.setAttribute("currentPage", page);
+		}
+		
+		List<Oeuvrepret> liste = service.consulterListeOeuvresPret((int)page-1,(int)nombreParPage);
+		request.setAttribute("oeuvres", liste);
+		
 		return new ModelAndView(destinationPage);
 	}
 	
@@ -104,22 +98,17 @@ public class OeuvrePretControleur extends MultiActionController {
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = FORM+OEUVREPRET;
-		try {
-			request.setAttribute("tabTitle", "Nouvelle oeuvre pret");
-			request.setAttribute("module", FORM+OEUVREPRET);
-			request.setAttribute("vue", FORM);
-			request.setAttribute("action", "Ajouter");
-			
-			ProprietaireService service = new ProprietaireService();
-			List<Proprietaire> liste;
-			liste = service.consulterListeProprietaires();
-			request.setAttribute("proprietaires", liste);
-			
-		} catch (Exception e) {
-			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
-		}
-
+		
+		request.setAttribute("tabTitle", "Nouvelle oeuvre pret");
+		request.setAttribute("module", FORM+OEUVREPRET);
+		request.setAttribute("vue", FORM);
+		request.setAttribute("action", "Ajouter");
+		
+		ProprietaireService service = new ProprietaireService();
+		List<Proprietaire> liste;
+		liste = service.consulterListeProprietaires();
+		request.setAttribute("proprietaires", liste);
+		
 		return new ModelAndView(destinationPage);
 	}
 	
@@ -134,26 +123,19 @@ public class OeuvrePretControleur extends MultiActionController {
 	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("idOeuvrePret")int idOeuvrePret) throws Exception {
 
 		String destinationPage = FORM+OEUVREPRET;
-		try {
-			
-			ProprietaireService service = new ProprietaireService();
-			List<Proprietaire> liste = service.consulterListeProprietaires();
-			request.setAttribute("proprietaires", liste);
-			
-			OeuvrePretService serviceO = new OeuvrePretService();
-			Oeuvrepret oeuvreAModifier = serviceO.consulterOeuvrePret(idOeuvrePret);
-			request.setAttribute("oeuvrePret", oeuvreAModifier);
-			request.setAttribute("tabTitle", "Modification oeuvre pret");
-			request.setAttribute("module", FORM+OEUVREPRET);
-			request.setAttribute("vue", FORM);
-			request.setAttribute("action", "Modifier");
-			
-		} catch (Exception e) {
-			System.out.println("ta mere l'erreur");
-			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
-		}
-
+		
+		ProprietaireService service = new ProprietaireService();
+		List<Proprietaire> liste = service.consulterListeProprietaires();
+		request.setAttribute("proprietaires", liste);
+		
+		OeuvrePretService serviceO = new OeuvrePretService();
+		Oeuvrepret oeuvreAModifier = serviceO.consulterOeuvrePret(idOeuvrePret);
+		request.setAttribute("oeuvrePret", oeuvreAModifier);
+		request.setAttribute("tabTitle", "Modification oeuvre pret");
+		request.setAttribute("module", FORM+OEUVREPRET);
+		request.setAttribute("vue", FORM);
+		request.setAttribute("action", "Modifier");
+		
 		return new ModelAndView(destinationPage);
 	}
 	

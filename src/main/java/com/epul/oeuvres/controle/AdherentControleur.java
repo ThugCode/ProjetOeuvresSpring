@@ -40,6 +40,13 @@ public class AdherentControleur extends MultiActionController {
 		super();
 	}
 
+	/**
+	 * Affichage de la liste des adhérents
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = ADHERENT+"/")
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		

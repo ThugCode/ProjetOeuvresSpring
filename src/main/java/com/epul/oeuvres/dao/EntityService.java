@@ -71,6 +71,16 @@ public abstract class EntityService
         entitymanager.close();
     }
 	
+	public void update(Object object) {
+		
+		EntityTransaction transaction = startTransaction();
+        transaction.begin();
+        entitymanager.merge(object);
+        transaction.commit();
+        entitymanager.close();
+        emf.close();
+	}
+
 	public boolean delete(Class classe, int id) {
 		
         EntityTransaction transaction = startTransaction();

@@ -31,6 +31,7 @@ public class OeuvrePretService extends EntityService{
 	 * @throws MonException
 	 */
 	public void updateOeuvrePret(Oeuvrepret oeuvrePret) throws MonException {
+		this.update(oeuvrePret);
 	}
 	
 	/**
@@ -42,7 +43,6 @@ public class OeuvrePretService extends EntityService{
 	public Oeuvrepret consulterOeuvrePret(int numero) throws MonException {
 		
 		return (Oeuvrepret) find(Oeuvrepret.class, numero);
-        //TODO récupérer l'id du proprio pour récuperer le proprio
 	}
 	
 	/**

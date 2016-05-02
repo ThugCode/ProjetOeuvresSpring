@@ -24,7 +24,9 @@
 					<div class="col-sm-10">
 						<select class="form-control" name="txtProprietaire" id="idProprietaire">
 						<c:forEach items="${proprietaires}" var="item">
-							<option value="${item.idProprietaire}">${item.nomProprietaire} ${item.prenomProprietaire}</option>
+							<option value="${item.idProprietaire}" ${item.idProprietaire == oeuvrePret.proprietaire.idProprietaire ? 'selected' : '' }>
+								${item.nomProprietaire} ${item.prenomProprietaire}
+							</option>
 						</c:forEach>
 						</select>
 					</div>

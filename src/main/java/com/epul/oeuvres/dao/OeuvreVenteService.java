@@ -29,7 +29,7 @@ public class OeuvreVenteService extends EntityService {
 	 * @throws MonException
 	 */
 	public void updateOeuvreVente(Oeuvrevente oeuvreVente) throws MonException {
-		
+		this.update(oeuvreVente);
 	}
 	
 	/**
@@ -41,7 +41,6 @@ public class OeuvreVenteService extends EntityService {
 	public Oeuvrevente consulterOeuvrevente(int numero) throws MonException {
 		
 		return (Oeuvrevente) find(Oeuvrevente.class, numero);
-        //TODO récupérer l'id du proprio pour récuperer le proprio
 	}
 	
 	/**
