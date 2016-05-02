@@ -23,18 +23,15 @@ public class Reservation implements Serializable {
 
 	private String statut;
 
-	//bi-directional many-to-one association to Oeuvrevente
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_oeuvrevente", insertable=false, updatable=false)
 	private Oeuvrevente oeuvrevente;
 
-	//bi-directional many-to-one association to Adherent
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_adherent", insertable=false, updatable=false)
 	private Adherent adherent;
 
-	public Reservation() {
-	}
+	public Reservation() {}
 
 	public ReservationPK getId() {
 		return this.id;

@@ -23,17 +23,17 @@
 			
 					<c:forEach items="${reservations}" var="item">
 						<tr>
-							<td>TODO</td>
-							<td>TODO</td>
+							<td>${item.oeuvrevente.titreOeuvrevente}</td>
+							<td>${item.adherent.nomAdherent} ${item.adherent.prenomAdherent}</td>
 							<td><fmt:formatDate value="${item.dateReservation}" pattern="dd / MM / yyyy" /></td>
-			                <td class="actionCol">
-			                	<a type="button" class="btn self-border" title="Modifier" href="Reservation/modifier/item.oeuvrevente.idOeuvrevente/item.adherent.idAdherent">
-			               			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-			               		</a>
-			               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="TODO" data-id2="TODO" data-toggle="modal" data-target="#confirmationModal">
-			                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-			                	</a>
-		                	</td>
+						        <td class="actionCol">
+							     	<a type="button" class="btn self-border" title="Modifier" href="Reservation/modifier/${item.oeuvrevente.idOeuvrevente}/${item.adherent.idAdherent}">
+									               			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									               		</a>
+									               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="${item.oeuvrevente.idOeuvrevente}" data-id2="${item.adherent.idAdherent}" data-toggle="modal" data-target="#confirmationModal">
+									                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									                	</a>
+								                	</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty reservations}">

@@ -37,7 +37,7 @@
   					<div class="form-group">
 					<label for="titreOeuvre" class="col-sm-2 control-label">Titre</label>
 					<div class="col-sm-10">
-						<label class="form-control" id="titreOeuvre">${oeuvre.titreOeuvre}</label>
+						<label class="form-control" id="titreOeuvre">${oeuvre.titreOeuvrevente}</label>
 					</div>
 				</div>
   				</c:otherwise>
