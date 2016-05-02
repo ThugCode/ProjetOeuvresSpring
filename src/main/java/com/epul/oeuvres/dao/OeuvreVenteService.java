@@ -2,6 +2,8 @@ package com.epul.oeuvres.dao;
 
 import java.util.*;
 
+import javax.persistence.EntityTransaction;
+
 import com.epul.oeuvres.meserreurs.MonException;
 import com.epul.oeuvres.metier.*;
 
@@ -19,6 +21,19 @@ public class OeuvreVenteService extends EntityService {
 	 * @throws MonException
 	 */
 	public void insertOeuvreVente(Oeuvrevente oeuvreVente)throws MonException {
+		try {
+
+			EntityTransaction transac = startTransaction();
+			if (!entitymanager.contains(oeuvreVente)) {
+				transac.begin();
+				entitymanager.persist(oeuvreVente);
+				entitymanager.flush();
+				transac.commit();
+			}
+			entitymanager.close();
+		} catch (Exception e) {
+			new MonException("Erreur d'insertion", e.getMessage());
+		}
 	}
 	
 	/**
@@ -37,7 +52,16 @@ public class OeuvreVenteService extends EntityService {
 	 * @param numero integer
 	 */
 	public Oeuvrevente consulterOeuvrevente(int numero) throws MonException {
-		return new Oeuvrevente();
+		Oeuvrevente oeuvreVente = null;
+		try {
+			EntityTransaction transac = startTransaction();
+			transac.begin();
+			oeuvreVente = entitymanager.find(Oeuvrevente.class, numero);
+			entitymanager.close();
+		} catch (Exception e) {
+			new MonException("Erreur de lecture ", e.getMessage());
+		}
+		return oeuvreVente;
 	}
 	
 	/**
@@ -47,7 +71,7 @@ public class OeuvreVenteService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Oeuvrevente> consulterListeOeuvresVentes() throws MonException {
-		return new ArrayList<Oeuvrevente>();
+		return consulterListeOeuvresVentes("SELECT o FROM Oeuvrevente o ORDER BY o.titreOeuvrevente");
 	}
 	
 	/**
@@ -57,7 +81,8 @@ public class OeuvreVenteService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Oeuvrevente> consulterListeOeuvresVentes(int page, int nombreParPage) throws MonException {
-		return new ArrayList<Oeuvrevente>();
+
+		return consulterListeOeuvresVentes("SELECT o FROM Oeuvrevente o ORDER BY o.titreOeuvrevente LIMIT "+page+","+nombreParPage);
 	}
 	
 	/**
@@ -67,7 +92,17 @@ public class OeuvreVenteService extends EntityService {
 	 * @throws MonException
 	 */
 	private List<Oeuvrevente> consulterListeOeuvresVentes(String mysql) throws MonException {
-		return new ArrayList<Oeuvrevente>();
+		List<Oeuvrevente> mesOeuvresVentes= null;
+		try {
+			
+			EntityTransaction transac = startTransaction();
+			transac.begin();
+			mesOeuvresVentes = (List<Oeuvrevente>)  entitymanager.createQuery(mysql).getResultList();
+			entitymanager.close();
+		}  catch (RuntimeException e){
+			new MonException("Erreur de lecture ", e.getMessage());
+		}
+		return mesOeuvresVentes;
 	}
 	
 	/**

@@ -2,6 +2,8 @@ package com.epul.oeuvres.dao;
 
 import java.util.*;
 
+import javax.persistence.EntityTransaction;
+
 import com.epul.oeuvres.meserreurs.MonException;
 import com.epul.oeuvres.metier.*;
 
@@ -19,7 +21,16 @@ public class ProprietaireService extends EntityService {
 	 * @param numero integer
 	 */
 	public Proprietaire consulterProprietaire(int numero) throws MonException {
-		return new Proprietaire();
+		Proprietaire proprietaire = null;
+		try {
+			EntityTransaction transac = startTransaction();
+			transac.begin();
+			proprietaire = entitymanager.find(Proprietaire.class, numero);
+			entitymanager.close();
+		} catch (Exception e) {
+			new MonException("Erreur de lecture ", e.getMessage());
+		}
+		return proprietaire;
 	}
 
 	/**
@@ -29,7 +40,7 @@ public class ProprietaireService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Proprietaire> consulterListeProprietaires() throws MonException {
-		return new ArrayList<Proprietaire>();
+		return consulterListeProprietaires("SELECT p FROM Proprietaire p ORDER BY p.nomProprietaire");
 	}
 
 	/**
@@ -39,6 +50,16 @@ public class ProprietaireService extends EntityService {
 	 * @throws MonException
 	 */
 	private List<Proprietaire> consulterListeProprietaires(String mysql) throws MonException {
-		return new ArrayList<Proprietaire>();
+		List<Proprietaire> proprietaires = null;
+		try {
+			
+			EntityTransaction transac = startTransaction();
+			transac.begin();
+			proprietaires = (List<Proprietaire>)  entitymanager.createQuery(mysql).getResultList();
+			entitymanager.close();
+		}  catch (RuntimeException e){
+			new MonException("Erreur de lecture ", e.getMessage());
+		}
+		return proprietaires;
 	}
 }

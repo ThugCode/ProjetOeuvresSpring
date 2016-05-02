@@ -1,9 +1,12 @@
 package com.epul.oeuvres.dao;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityTransaction;
 
 import com.epul.oeuvres.meserreurs.MonException;
-import com.epul.oeuvres.metier.*;
+import com.epul.oeuvres.metier.Oeuvrepret;
 
 /**
  * Classe DAO pour les oeuvres pret
@@ -19,6 +22,19 @@ public class OeuvrePretService extends EntityService{
 	 * @throws MonException
 	 */
 	public void insertOeuvrePret(Oeuvrepret oeuvrePret)throws MonException {
+		try {
+
+			EntityTransaction transac = startTransaction();
+			if (!entitymanager.contains(oeuvrePret)) {
+				transac.begin();
+				entitymanager.persist(oeuvrePret);
+				entitymanager.flush();
+				transac.commit();
+			}
+			entitymanager.close();
+		} catch (Exception e) {
+			new MonException("Erreur d'insertion", e.getMessage());
+		}
 	}
 	
 	/**
@@ -37,7 +53,16 @@ public class OeuvrePretService extends EntityService{
 	 * @param numero integer
 	 */
 	public Oeuvrepret consulterOeuvrePret(int numero) throws MonException {
-		return new Oeuvrepret();
+		Oeuvrepret oeuvrePret = null;
+		try {
+			EntityTransaction transac = startTransaction();
+			transac.begin();
+			oeuvrePret = entitymanager.find(Oeuvrepret.class, numero);
+			entitymanager.close();
+		} catch (Exception e) {
+			new MonException("Erreur de lecture ", e.getMessage());
+		}
+		return oeuvrePret;
 	}
 	
 	/**
@@ -47,7 +72,7 @@ public class OeuvrePretService extends EntityService{
 	 * @throws MonException
 	 */
 	public List<Oeuvrepret> consulterListeOeuvresPret() throws MonException {
-		return new ArrayList<Oeuvrepret>();
+		return consulterListeOeuvresPret("SELECT o FROM Oeuvrepret o ORDER BY o.titreOeuvrepret");
 	}
 	
 	/**
@@ -57,7 +82,8 @@ public class OeuvrePretService extends EntityService{
 	 * @throws MonException
 	 */
 	public List<Oeuvrepret> consulterListeOeuvresPret(int page, int nombreParPage) throws MonException {
-		return new ArrayList<Oeuvrepret>();
+		
+		return consulterListeOeuvresPret("SELECT o FROM Oeuvrepret o ORDER BY o.titreOeuvrepret LIMIT "+page+","+nombreParPage);
 	}
 	
 	/**
@@ -67,7 +93,17 @@ public class OeuvrePretService extends EntityService{
 	 * @throws MonException
 	 */
 	private List<Oeuvrepret> consulterListeOeuvresPret(String mysql) throws MonException {
-		return new ArrayList<Oeuvrepret>();
+		List<Oeuvrepret> mesOeuvresPret= null;
+		try {
+			
+			EntityTransaction transac = startTransaction();
+			transac.begin();
+			mesOeuvresPret = (List<Oeuvrepret>)  entitymanager.createQuery(mysql).getResultList();
+			entitymanager.close();
+		}  catch (RuntimeException e){
+			new MonException("Erreur de lecture ", e.getMessage());
+		}
+		return mesOeuvresPret;
 	}
 	
 	/**

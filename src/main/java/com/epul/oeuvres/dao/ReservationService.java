@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.persistence.EntityTransaction;
+
 import com.epul.oeuvres.meserreurs.MonException;
 import com.epul.oeuvres.metier.*;
 
@@ -21,6 +23,19 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	public void insertReservation(Reservation reservation)throws MonException {
+		try {
+
+			EntityTransaction transac = startTransaction();
+			if (!entitymanager.contains(reservation)) {
+				transac.begin();
+				entitymanager.persist(reservation);
+				entitymanager.flush();
+				transac.commit();
+			}
+			entitymanager.close();
+		} catch (Exception e) {
+			new MonException("Erreur d'insertion", e.getMessage());
+		}
 	}
 	
 	/**
@@ -39,7 +54,19 @@ public class ReservationService extends EntityService {
 	 * @param numero integer
 	 */
 	public Reservation consulterReservation(int idOeuvreVente, int idAdherent) throws MonException {
-		return new Reservation();
+		Reservation reservation = null;
+		try {
+			EntityTransaction transac = startTransaction();
+			transac.begin();
+			ReservationPK cle = new ReservationPK();
+			cle.setIdOeuvrevente(idOeuvreVente);
+			cle.setIdAdherent(idAdherent);
+			reservation = entitymanager.find(Reservation.class, cle);
+			entitymanager.close();
+		} catch (Exception e) {
+			new MonException("Erreur de lecture ", e.getMessage());
+		}
+		return reservation;
 	}
 	
 	/**
@@ -49,7 +76,7 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Reservation> consulterListeReservations() throws MonException {
-		return new ArrayList<Reservation>();
+		return consulterListeReservations("SELECT r FROM Reservation r ORDER BY r.dateReservation");
 	}
 	
 	/**
@@ -59,7 +86,7 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Reservation> consulterListeReservations(int page, int nombreParPage) throws MonException {
-		return new ArrayList<Reservation>();
+		return consulterListeReservations("SELECT r FROM Reservation r ORDER BY r.dateReservation LIMIT "+page+","+nombreParPage);
 	}
 	
 	/**
@@ -69,7 +96,17 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	private List<Reservation> consulterListeReservations(String mysql) throws MonException {
-		return new ArrayList<Reservation>();
+		List<Reservation> Reservations= null;
+		try {
+			
+			EntityTransaction transac = startTransaction();
+			transac.begin();
+			Reservations = (List<Reservation>)  entitymanager.createQuery(mysql).getResultList();
+			entitymanager.close();
+		}  catch (RuntimeException e){
+			new MonException("Erreur de lecture ", e.getMessage());
+		}
+		return Reservations;
 	}
 	
 	/**
