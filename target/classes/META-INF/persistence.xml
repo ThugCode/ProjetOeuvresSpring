@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="ProjetOeuvresSpring">
+	<persistence-unit name="POeuvre">
+	
 		<class>com.epul.oeuvres.metier.Adherent</class>
 		<class>com.epul.oeuvres.metier.Oeuvrepret</class>
 		<class>com.epul.oeuvres.metier.Oeuvrevente</class>
 		<class>com.epul.oeuvres.metier.Proprietaire</class>
 		<class>com.epul.oeuvres.metier.Reservation</class>
 		<class>com.epul.oeuvres.metier.ReservationPK</class>
+		
+		<properties>
+	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+	        <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+	        <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/baseoeuvre" />
+	        <property name="hibernate.connection.username" value="userepul" />
+	        <property name="hibernate.connection.password" value="epul" />
+	        <property name="hibernate.show_sql" value="true"/>
+	    </properties>
+	    
 	</persistence-unit>
 </persistence>
