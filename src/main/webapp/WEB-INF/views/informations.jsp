@@ -3,9 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<link href="<%=request.getContextPath()%>/resources/css/informations.css" rel="stylesheet" type="text/css" />
-<script src="<%=request.getContextPath()%>/resources/lib/jquery/jquery-2.2.0.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/informations.js"></script>
+<link href="${pageContext.request.contextPath}/resources/css/informations.css" rel="stylesheet" type="text/css" />
+<script src="${pageContext.request.contextPath}/resources/lib/jquery/jquery-2.2.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/informations.js"></script>
 
 <t:layout tabTitle="Informations">
     <jsp:body>
@@ -14,7 +14,7 @@
 			<svg id="hexagoneLoic" class="hexagonePhoto" viewbox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgLoic" patternUnits="userSpaceOnUse" width="100" height="100">
-						<image id="imgLolo" xlink:href="<%=request.getContextPath()%>/resources/img/loic.jpg" x="-25" width="150" height="100" />
+						<image id="imgLolo" xlink:href="${pageContext.request.contextPath}/resources/img/loic.jpg" x="-25" width="150" height="100" />
 					</pattern>
 				</defs>
 				<polygon id="hexLoic" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#imgLoic)"/>
@@ -25,7 +25,7 @@
 			<svg id="hexagoneLeo" class="hexagonePhoto right" viewbox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgLeo" patternUnits="userSpaceOnUse" width="100" height="100">
-						<image id="imgLeoHover" xlink:href="<%=request.getContextPath()%>/resources/img/leo.jpg" x="-25" width="150" height="100" />
+						<image id="imgLeoHover" xlink:href="${pageContext.request.contextPath}/resources/img/leo.jpg" x="-25" width="150" height="100" />
 					</pattern>
 				</defs>
 				<polygon id="hexLeo" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#imgLeo)"/>

@@ -31,7 +31,7 @@
 			</svg>
 			</a>
 			
-			<a href="Adherent/listeAdherent">
+			<a href="Adherent/">
 			<svg class="hexagone" viewbox="5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgUser" patternUnits="userSpaceOnUse" width="100" height="100">
@@ -44,7 +44,7 @@
 			</svg>
 			</a>
 			
-			<a href="OeuvreVente/listeOeuvreVente">
+			<a href="OeuvreVente/">
 			<svg class="hexagone rightHexagone" viewbox="-5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgVente" patternUnits="userSpaceOnUse" width="100" height="100">
@@ -68,7 +68,7 @@
 			</svg>
 			</a>
 
-			<a href="OeuvrePret/listeOeuvrePret">
+			<a href="OeuvrePret/">
 			<svg class="hexagone" viewbox="5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgEchange" patternUnits="userSpaceOnUse" width="100" height="100">
@@ -81,7 +81,7 @@
 			</svg>
 			</a>
 			
-			<a href="Reservation/listeReservation">
+			<a href="Reservation/">
 			<svg class="hexagone rightHexagone" viewbox="-5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="imgReservation" patternUnits="userSpaceOnUse" width="100" height="100">

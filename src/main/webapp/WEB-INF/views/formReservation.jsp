@@ -11,8 +11,8 @@
     				action="${action}">
 			<jsp:body>
 		
-				<input type="hidden" name="idOeuvre" class="form-control" id="idOeuvre" value="${oeuvre.idOeuvre}">
-				<input type="hidden" name="oldOeuvre" class="form-control" id="oldOeuvre" value="${reservation.oeuvrevente.idOeuvre}">
+				<input type="hidden" name="idOeuvre" class="form-control" id="idOeuvre" value="${oeuvre.idOeuvrevente}">
+				<input type="hidden" name="oldOeuvre" class="form-control" id="oldOeuvre" value="${reservation.oeuvrevente.idOeuvrevente}">
 				<input type="hidden" name="oldAdherent" class="form-control" id="oldAdherent" value="${reservation.adherent.idAdherent}">
 				
 				<c:choose> 
@@ -23,11 +23,11 @@
                             <select class="form-control" name="idOeuvre" id="oeuvre" onchange="changeId()">
                             	<option value="-1" selected disabled>Sélectionnez une oeuvre</option>
                             <c:forEach items="${oeuvres}" var="item">
-                                <option ${item.idOeuvre == reservation.oeuvrevente.idOeuvre ? 'selected' : '' }
-                                		value="${item.idOeuvre}"
+                                <option ${item.idOeuvrevente == reservation.oeuvrevente.idOeuvrevente ? 'selected' : '' }
+                                		value="${item.idOeuvrevente}"
                                 		data-prix="${item.prixOeuvrevente}"
                                 		data-proprietaire="${item.proprietaire.nomProprietaire} ${item.proprietaire.prenomProprietaire}">
-                                		${item.titreOeuvre}</option>
+                                		${item.titreOeuvrevente}</option>
                             </c:forEach>
                             </select>
                         </div>

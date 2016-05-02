@@ -33,7 +33,7 @@
 			                		data-nom="${item.nomAdherent} ${item.prenomAdherent}" data-toggle="modal" data-target="#emailModal">
 			                		<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 			                	</a>
-			                	<a type="button" class="btn self-border" title="Modifier" href="Adherent?action=modifier&idAdherent=${item.idAdherent}">
+			                	<a type="button" class="btn self-border" title="Modifier" href="modifier/${item.idAdherent}">
 			               			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 			               		</a>
 								<a type="button" class="btn btndel self-border" title="Supprimer" data-id="${item.idAdherent}" data-toggle="modal" data-target="#confirmationModal">

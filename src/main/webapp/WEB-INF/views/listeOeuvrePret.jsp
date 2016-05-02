@@ -23,17 +23,17 @@
 			
 					<c:forEach items="${oeuvres}" var="item">
 						<tr>
-							<td>${item.idOeuvre}</td>
-							<td>${item.titreOeuvre}</td>
-			                <td>${item.proprietaire.nomProprietaire} ${item.proprietaire.prenomProprietaire}</td>
+							<td>${item.idOeuvrepret}</td>
+							<td>${item.titreOeuvrepret}</td>
+			                <td>TODO</td>
 			                <td class="actionCol">
 			                	<a type="button" class="btn self-border" title="Effectuer un prêt" disabled="disabled" href="#">
 			               			<span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
 			               		</a>
-			                	<a type="button" class="btn self-border" title="Modifier" href="OeuvrePret?action=modifier&idOeuvre=${item.idOeuvre}">
+			                	<a type="button" class="btn self-border" title="Modifier" href="modifier/${item.idOeuvrepret}">
 			               			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 			               		</a>
-			               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="${item.idOeuvre}" data-toggle="modal" data-target="#confirmationModal">
+			               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="${item.idOeuvrepret}" data-toggle="modal" data-target="#confirmationModal">
 			                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 			                	</a>
 			               	</td>

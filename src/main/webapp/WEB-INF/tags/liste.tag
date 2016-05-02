@@ -9,7 +9,7 @@
 <div class="liste" id="liste">
 	
 	<div class="buttonHeader">
-		<a id="buttonAdd" type="button" class="btn" href="ajouter${classe}">
+		<a id="buttonAdd" type="button" class="btn" href="ajouter">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> ${ajout}
 		</a>
 		
@@ -32,9 +32,9 @@
 		</div>
 	</div>
 	
-	<form id="deleteForm" class="form-horizontal" method="post" action="supprimer${classe}">
-	<input type="hidden" name="idSelected" class="form-control" id="idSelected">
-	<input type="hidden" name="idSelected2" class="form-control" id="idSelected2">
+	<form id="deleteForm" class="form-horizontal" method="post" action="supprimer">
+		<input type="hidden" name="idSelected" class="form-control" id="idSelected">
+		<input type="hidden" name="idSelected2" class="form-control" id="idSelected2">
 	</form>
 				
 	
@@ -72,7 +72,7 @@
 		</ul>
 	</div>
 	
-	<form id="changeTab" class="form-horizontal" method="post" action="liste${classe}">
+	<form id="changeTab" class="form-horizontal" method="post" action="">
 		<input type="hidden" id="currentPage" name="currentPage" class="form-control" value="${currentPage}">
 		<input type="hidden" id="currentNumberPerPage" name="currentNumberPerPage" class="form-control" value="${currentNumberPerPage}">
 	</form>	

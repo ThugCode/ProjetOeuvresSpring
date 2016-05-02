@@ -25,13 +25,7 @@ public class Proprietaire implements Serializable {
 	@Column(name="prenom_proprietaire")
 	private String prenomProprietaire;
 
-	//bi-directional many-to-one association to Oeuvrepret
-	@OneToMany(mappedBy="proprietaire")
-	private List<Oeuvrepret> oeuvreprets;
-
-	//bi-directional many-to-one association to Oeuvrevente
-	@OneToMany(mappedBy="proprietaire")
-	private List<Oeuvrevente> oeuvreventes;
+	
 
 	public Proprietaire() {
 	}
@@ -60,45 +54,33 @@ public class Proprietaire implements Serializable {
 		this.prenomProprietaire = prenomProprietaire;
 	}
 
-	public List<Oeuvrepret> getOeuvreprets() {
-		return this.oeuvreprets;
-	}
-
-	public void setOeuvreprets(List<Oeuvrepret> oeuvreprets) {
-		this.oeuvreprets = oeuvreprets;
-	}
+	
 
 	public Oeuvrepret addOeuvrepret(Oeuvrepret oeuvrepret) {
-		getOeuvreprets().add(oeuvrepret);
+		
 		oeuvrepret.setProprietaire(this);
 
 		return oeuvrepret;
 	}
 
 	public Oeuvrepret removeOeuvrepret(Oeuvrepret oeuvrepret) {
-		getOeuvreprets().remove(oeuvrepret);
+		
 		oeuvrepret.setProprietaire(null);
 
 		return oeuvrepret;
 	}
 
-	public List<Oeuvrevente> getOeuvreventes() {
-		return this.oeuvreventes;
-	}
-
-	public void setOeuvreventes(List<Oeuvrevente> oeuvreventes) {
-		this.oeuvreventes = oeuvreventes;
-	}
+	
 
 	public Oeuvrevente addOeuvrevente(Oeuvrevente oeuvrevente) {
-		getOeuvreventes().add(oeuvrevente);
+		
 		oeuvrevente.setProprietaire(this);
 
 		return oeuvrevente;
 	}
 
 	public Oeuvrevente removeOeuvrevente(Oeuvrevente oeuvrevente) {
-		getOeuvreventes().remove(oeuvrevente);
+		
 		oeuvrevente.setProprietaire(null);
 
 		return oeuvrevente;

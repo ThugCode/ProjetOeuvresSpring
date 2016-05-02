@@ -10,13 +10,13 @@
     				action="${action}">
 			<jsp:body>
 		
-				<input type="hidden" name="idOeuvre" class="form-control" id="idOeuvre" value="${oeuvrePret.idOeuvre}">
+				<input type="hidden" name="idOeuvre" class="form-control" id="idOeuvre" value="${oeuvrePret.idOeuvrepret}">
 				
 				<div class="form-group">
 					<label for="titreOeuvre" class="col-sm-2 control-label">Titre</label>
 					<div class="col-sm-10">
 						<input type="text" name="txtTitre" class="form-control"
-							id="titreOeuvre" placeholder="Titre" value="${oeuvrePret.titreOeuvre}">
+							id="titreOeuvre" placeholder="Titre" value="${oeuvrePret.titreOeuvrepret}">
 					</div>
 				</div>
 				<div class="form-group">

@@ -52,5 +52,4 @@ public class Oeuvrepret implements Serializable {
 	public void setProprietaire(Proprietaire proprietaire) {
 		this.proprietaire = proprietaire;
 	}
-
 }

@@ -50,14 +50,14 @@
                  </div>
                  <div class="collapse navbar-collapse" id="navbar-collapse-target">
                 	<ul class="nav navbar-nav navbar-right">
-						<a href="<%=request.getContextPath()%>/Adherent/listeAdherent">
+						<a href="<%=request.getContextPath()%>/Adherent/">
 							<svg class="hexagone" viewbox="5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 								<polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="#339999"/>
 								
 								<text font-size="13" x="50" y="52" text-anchor="middle">Adhérents</text>
 							</svg>
 						</a>
-						<a href="<%=request.getContextPath()%>/OeuvreVente/listeOeuvreVente">
+						<a href="<%=request.getContextPath()%>/OeuvreVente/">
 							<svg class="hexagone" viewbox="5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 								<polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="#339999"/>
 								
@@ -65,7 +65,7 @@
 								<text font-size="13" x="50" y="60" text-anchor="middle">d'Oeuvres</text>
 							</svg>
 						</a>
-						<a href="<%=request.getContextPath()%>/OeuvrePret/listeOeuvrePret">
+						<a href="<%=request.getContextPath()%>/OeuvrePret/">
 							<svg class="hexagone" viewbox="5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 								<polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="#339999"/>
 								
@@ -73,7 +73,7 @@
 								<text font-size="13" x="50" y="60" text-anchor="middle">d'Oeuvres</text>
 							</svg>
 						</a>
-						<a href="<%=request.getContextPath()%>/Reservation/listeReservation">
+						<a href="<%=request.getContextPath()%>/Reservation/">
 							<svg class="hexagone" viewbox="5 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 								<polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="#339999"/>
 								

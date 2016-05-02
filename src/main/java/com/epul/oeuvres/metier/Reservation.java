@@ -25,12 +25,12 @@ public class Reservation implements Serializable {
 
 	//bi-directional many-to-one association to Oeuvrevente
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_oeuvrevente")
+	@JoinColumn(name="id_oeuvrevente", insertable=false, updatable=false)
 	private Oeuvrevente oeuvrevente;
 
 	//bi-directional many-to-one association to Adherent
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_adherent")
+	@JoinColumn(name="id_adherent", insertable=false, updatable=false)
 	private Adherent adherent;
 
 	public Reservation() {

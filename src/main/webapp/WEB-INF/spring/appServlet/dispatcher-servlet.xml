@@ -16,28 +16,28 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		</property>
 	</bean>
 
-	<bean name="/multiaction/*.htm" class="com.epul.oeuvres.controle.AdherentControleur">
+	<bean name="/Adherent/*" class="com.epul.oeuvres.controle.AdherentControleur">
 		<property name="methodNameResolver">
 			<bean
 				class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver" />
 		</property>
 	</bean>
 	
-	<bean name="/multiaction/*.htm" class="com.epul.oeuvres.controle.OeuvrePretControleur">
+	<bean name="/OeuvrePret/*.htm" class="com.epul.oeuvres.controle.OeuvrePretControleur">
 		<property name="methodNameResolver">
 			<bean
 				class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver" />
 		</property>
 	</bean>
 	
-	<bean name="/multiaction/*.htm" class="com.epul.oeuvres.controle.OeuvreVenteControleur">
+	<bean name="/OeuvreVente/*.htm" class="com.epul.oeuvres.controle.OeuvreVenteControleur">
 		<property name="methodNameResolver">
 			<bean
 				class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver" />
 		</property>
 	</bean>
 	
-	<bean name="/multiaction/*.htm" class="com.epul.oeuvres.controle.ReservationControleur">
+	<bean name="/Reservation/*.htm" class="com.epul.oeuvres.controle.ReservationControleur">
 		<property name="methodNameResolver">
 			<bean
 				class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver" />

@@ -25,19 +25,19 @@
 			
 					<c:forEach items="${oeuvres}" var="item">
 						<tr>
-							<td>${item.idOeuvre}</td>
-							<td>${item.titreOeuvre}</td>
+							<td>${item.idOeuvrevente}</td>
+							<td>${item.titreOeuvrevente}</td>
 							<td>${item.etatOeuvrevente}</td>
 			                <td>${item.prixOeuvrevente}</td>
-			                <td>${item.proprietaire.nomProprietaire} ${item.proprietaire.prenomProprietaire}</td>
+			                <td>TODO</td>
 			                <td class="actionCol">
-			                	<a type="button" class="btn self-border" title="Effectuer une vente" href="Reservation?action=ajouter&idOeuvre=${item.idOeuvre}">
+			                	<a type="button" class="btn self-border" title="Effectuer une vente" href="${pageContext.request.contextPath}/Reservation/ajouter/${item.idOeuvrevente}">
 			               			<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 			               		</a>
-			                	<a type="button" class="btn self-border" title="Modifier" href="OeuvreVente?action=modifier&idOeuvre=${item.idOeuvre}">
+			                	<a type="button" class="btn self-border" title="Modifier" href="modifier/${item.idOeuvrevente}">
 			               			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 			               		</a>
-			               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="${item.idOeuvre}" data-toggle="modal" data-target="#confirmationModal">
+			               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="${item.idOeuvrevente}" data-toggle="modal" data-target="#confirmationModal">
 			                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 			                	</a>
 		                	</td>

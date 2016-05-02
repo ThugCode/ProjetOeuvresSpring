@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
@@ -47,10 +48,10 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = OEUVREPRET+"/"+LISTE+OEUVREPRET)
+	@RequestMapping(value = OEUVREPRET+"/")
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage;
+		String destinationPage = LISTE+OEUVREPRET;
 		try {
 			
 			page = 1;
@@ -84,7 +85,6 @@ public class OeuvrePretControleur extends MultiActionController {
 			List<Oeuvrepret> liste = service.consulterListeOeuvresPret((int)page-1,(int)nombreParPage);
 			request.setAttribute("oeuvres", liste);
 			
-			destinationPage = LISTE+OEUVREPRET;
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
 			destinationPage = "erreur";
@@ -100,12 +100,11 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = OEUVREPRET+"/"+AJOUTER+OEUVREPRET)
+	@RequestMapping(value = OEUVREPRET+"/"+AJOUTER)
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = "";
+		String destinationPage = FORM+OEUVREPRET;
 		try {
-			destinationPage = FORM+OEUVREPRET;
 			request.setAttribute("tabTitle", "Nouvelle oeuvre pret");
 			request.setAttribute("module", FORM+OEUVREPRET);
 			request.setAttribute("vue", FORM);
@@ -131,27 +130,26 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = OEUVREPRET+"/"+MODIFIER+OEUVREPRET)
-	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = OEUVREPRET+"/"+MODIFIER+"/{idOeuvrePret}")
+	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("idOeuvrePret")int idOeuvrePret) throws Exception {
 
-		String destinationPage = "";
+		String destinationPage = FORM+OEUVREPRET;
 		try {
 			
 			ProprietaireService service = new ProprietaireService();
-			List<Proprietaire> liste;
-			liste = service.consulterListeProprietaires();
+			List<Proprietaire> liste = service.consulterListeProprietaires();
 			request.setAttribute("proprietaires", liste);
 			
-			
 			OeuvrePretService serviceO = new OeuvrePretService();
-			Oeuvrepret oeuvreAModifier = serviceO.consulterOeuvrePret(Integer.parseInt(request.getParameter("idOeuvre")));
+			Oeuvrepret oeuvreAModifier = serviceO.consulterOeuvrePret(idOeuvrePret);
 			request.setAttribute("oeuvrePret", oeuvreAModifier);
-			destinationPage = FORM+OEUVREPRET;
 			request.setAttribute("tabTitle", "Modification oeuvre pret");
 			request.setAttribute("module", FORM+OEUVREPRET);
 			request.setAttribute("vue", FORM);
 			request.setAttribute("action", "Modifier");
+			
 		} catch (Exception e) {
+			System.out.println("ta mere l'erreur");
 			request.setAttribute("messageErreur", e.getMessage());
 			destinationPage = "erreur";
 		}
@@ -166,10 +164,10 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = OEUVREPRET+"/"+INSERER+OEUVREPRET)
+	@RequestMapping(value = OEUVREPRET+"/"+INSERER)
 	public ModelAndView insertNewObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = LISTE+OEUVREPRET;
+		String destinationPage = "/"+OEUVREPRET+"/";
 		try {
 			
 			OeuvrePretService service = new OeuvrePretService();
@@ -214,10 +212,10 @@ public class OeuvrePretControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = OEUVREPRET+"/"+SUPPRIMER+OEUVREPRET)
+	@RequestMapping(value = OEUVREPRET+"/"+SUPPRIMER)
 	protected ModelAndView deleteObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = LISTE+OEUVREPRET;
+		String destinationPage = "/"+OEUVREPRET+"/";
 		try {
 			OeuvrePretService service = new OeuvrePretService();
 			int id = Integer.parseInt(request.getParameter("idSelected"));

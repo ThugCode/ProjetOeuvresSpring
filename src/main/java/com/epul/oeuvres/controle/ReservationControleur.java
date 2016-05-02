@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
@@ -53,10 +54,10 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = RESERVATION+"/"+LISTE+RESERVATION)
+	@RequestMapping(value = RESERVATION+"/")
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage;
+		String destinationPage = LISTE+RESERVATION;
 		try {
 			
 			page = 1;
@@ -90,7 +91,6 @@ public class ReservationControleur extends MultiActionController {
 			List<Reservation> liste = service.consulterListeReservations((int)page-1,(int)nombreParPage);
 			request.setAttribute("reservations", liste);
 			
-			destinationPage = LISTE+RESERVATION;
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
 			destinationPage = "erreur";
@@ -106,12 +106,11 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = RESERVATION+"/"+AJOUTER+RESERVATION)
+	@RequestMapping(value = RESERVATION+"/"+AJOUTER)
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = "";
+		String destinationPage = FORM+RESERVATION;
 		try {
-			destinationPage = FORM+RESERVATION;
 			
 			request.setAttribute("tabTitle", "Nouvelle réservation");
 			request.setAttribute("module", FORM+RESERVATION);
@@ -150,10 +149,11 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = RESERVATION+"/"+MODIFIER+RESERVATION)
-	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = RESERVATION+"/"+MODIFIER+"/{idOeuvrevente}/{idAdherent}")
+	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("idOeuvrevente")int idOeuvrevente, @PathVariable("idAdherent")int idAdherent) throws Exception {
 
-		String destinationPage = "";
+		String destinationPage = FORM+RESERVATION;
 		try {
 			
 			AdherentService aService = new AdherentService();
@@ -166,18 +166,13 @@ public class ReservationControleur extends MultiActionController {
 			oeuvres = oService.consulterListeOeuvresVentes();
 			request.setAttribute("oeuvres", oeuvres);
 			
-			Oeuvrevente oeuvre = oService.consulterOeuvrevente(Integer.parseInt(request.getParameter("idOeuvre").toString()));
+			Oeuvrevente oeuvre = oService.consulterOeuvrevente(idOeuvrevente);
 			request.setAttribute("oeuvre", oeuvre);
 			
 			ReservationService service = new ReservationService();
-			Reservation reservationAModifier = service.consulterReservation(
-					Integer.parseInt(request.getParameter("idOeuvre")), 
-					Integer.parseInt(request.getParameter("idAdherent")));
+			Reservation reservationAModifier = service.consulterReservation(idOeuvrevente, idAdherent);
 			
 			request.setAttribute("reservation", reservationAModifier);
-			
-			destinationPage = FORM+RESERVATION;
-			
 			request.setAttribute("tabTitle", "Modification reservation");
 			request.setAttribute("module", FORM+RESERVATION);
 			request.setAttribute("vue", FORM);
@@ -197,10 +192,10 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = RESERVATION+"/"+INSERER+RESERVATION)
+	@RequestMapping(value = RESERVATION+"/"+INSERER)
 	public ModelAndView insertNewObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = LISTE+RESERVATION;
+		String destinationPage = "/"+RESERVATION+"/";
 		try {
 			
 			ReservationService service = new ReservationService();
@@ -260,10 +255,10 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = RESERVATION+"/"+SUPPRIMER+RESERVATION)
+	@RequestMapping(value = RESERVATION+"/"+SUPPRIMER)
 	protected ModelAndView deleteObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = LISTE+RESERVATION;
+		String destinationPage = "/"+RESERVATION+"/";
 		try {
 			ReservationService service = new ReservationService();
 			int idOeuvre = Integer.parseInt(request.getParameter("idSelected"));

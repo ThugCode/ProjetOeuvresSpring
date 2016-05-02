@@ -1,7 +1,5 @@
 package com.epul.oeuvres.dao;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.persistence.EntityTransaction;
@@ -22,20 +20,9 @@ public class ReservationService extends EntityService {
 	 * @param oeuvrePret
 	 * @throws MonException
 	 */
-	public void insertReservation(Reservation reservation)throws MonException {
-		try {
-
-			EntityTransaction transac = startTransaction();
-			if (!entitymanager.contains(reservation)) {
-				transac.begin();
-				entitymanager.persist(reservation);
-				entitymanager.flush();
-				transac.commit();
-			}
-			entitymanager.close();
-		} catch (Exception e) {
-			new MonException("Erreur d'insertion", e.getMessage());
-		}
+	public void insertReservation(Reservation reservation) throws MonException {
+		
+		this.inserer(reservation);
 	}
 	
 	/**
@@ -45,6 +32,7 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	public void updateReservation(Reservation reservation, int oldOeuvre, int oldAdherent) throws MonException {
+		
 	}
 	
 	/**
@@ -86,7 +74,8 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	public List<Reservation> consulterListeReservations(int page, int nombreParPage) throws MonException {
-		return consulterListeReservations("SELECT r FROM Reservation r ORDER BY r.dateReservation LIMIT "+page+","+nombreParPage);
+		
+		return findAllWithLimit("SELECT r FROM Reservation r ORDER BY r.dateReservation", page, nombreParPage);
 	}
 	
 	/**
@@ -96,17 +85,8 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	private List<Reservation> consulterListeReservations(String mysql) throws MonException {
-		List<Reservation> Reservations= null;
-		try {
-			
-			EntityTransaction transac = startTransaction();
-			transac.begin();
-			Reservations = (List<Reservation>)  entitymanager.createQuery(mysql).getResultList();
-			entitymanager.close();
-		}  catch (RuntimeException e){
-			new MonException("Erreur de lecture ", e.getMessage());
-		}
-		return Reservations;
+		
+		return findAll(mysql);
 	}
 	
 	/**
@@ -116,7 +96,19 @@ public class ReservationService extends EntityService {
 	 * @throws MonException
 	 */
 	public boolean deleteReservation(int idOeuvreVente, int idAdherent) throws MonException {
-		return false;
+		
+		EntityTransaction transac = startTransaction();
+		transac.begin();
+		ReservationPK cle = new ReservationPK();
+		cle.setIdOeuvrevente(idOeuvreVente);
+		cle.setIdAdherent(idAdherent);
+		Reservation reservation = entitymanager.find(Reservation.class, cle);
+		entitymanager.remove(reservation);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emf.close();
+		
+		return true;
 	}
 
 	

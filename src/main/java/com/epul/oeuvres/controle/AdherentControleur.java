@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
@@ -39,10 +40,10 @@ public class AdherentControleur extends MultiActionController {
 		super();
 	}
 
-	@RequestMapping(value = ADHERENT+"/"+LISTE+ADHERENT)
+	@RequestMapping(value = ADHERENT+"/")
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage;
+		String destinationPage = LISTE+ADHERENT;
 		try {
 			
 			page = 1;
@@ -76,11 +77,9 @@ public class AdherentControleur extends MultiActionController {
 			List<Adherent> liste = service.consulterListeAdherents((int)page-1,(int)nombreParPage);
 			request.setAttribute("adherents", liste);
 			
-			destinationPage = LISTE+ADHERENT;
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
 			destinationPage = "erreur";
-
 		}
 		return new ModelAndView(destinationPage);
 	}
@@ -92,12 +91,11 @@ public class AdherentControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = ADHERENT+"/"+AJOUTER+ADHERENT)
+	@RequestMapping(value = ADHERENT+"/"+AJOUTER)
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = "";
+		String destinationPage = FORM+ADHERENT;
 		try {
-			destinationPage = FORM+ADHERENT;
 			request.setAttribute("tabTitle", "Nouvel adhérent");
 			request.setAttribute("module", FORM+ADHERENT);
 			request.setAttribute("vue", FORM);
@@ -117,15 +115,14 @@ public class AdherentControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = ADHERENT+"/"+MODIFIER+ADHERENT)
-	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = ADHERENT+"/"+MODIFIER+"/{idAdherent}")
+	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("idAdherent")int idAdherent) throws Exception {
 
-		String destinationPage = "";
+		String destinationPage = FORM+ADHERENT;
 		try {
 			AdherentService unService = new AdherentService();
-			Adherent adherentAModifier = unService.consulterAdherent(Integer.parseInt(request.getParameter("idAdherent")));
+			Adherent adherentAModifier = unService.consulterAdherent(idAdherent);
 			request.setAttribute("adherent", adherentAModifier);
-			destinationPage = FORM+ADHERENT;
 			request.setAttribute("tabTitle", "Modification adhérent");
 			request.setAttribute("module", FORM+ADHERENT);
 			request.setAttribute("vue", FORM);
@@ -145,10 +142,10 @@ public class AdherentControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = ADHERENT+"/"+INSERER+ADHERENT)
+	@RequestMapping(value = ADHERENT+"/"+INSERER)
 	public ModelAndView insertNewObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = LISTE+ADHERENT;
+		String destinationPage = "/"+ADHERENT+"/";
 		try {
 			AdherentService unService = new AdherentService();
 			
@@ -189,10 +186,10 @@ public class AdherentControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = ADHERENT+"/"+SUPPRIMER+ADHERENT)
+	@RequestMapping(value = ADHERENT+"/"+SUPPRIMER)
 	protected ModelAndView deleteObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = LISTE+ADHERENT;
+		String destinationPage = "/"+ADHERENT+"/";
 		try {
 			AdherentService unService = new AdherentService();
 			int id = Integer.parseInt(request.getParameter("idSelected"));

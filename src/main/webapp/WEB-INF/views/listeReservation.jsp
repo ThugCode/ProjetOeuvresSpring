@@ -23,14 +23,14 @@
 			
 					<c:forEach items="${reservations}" var="item">
 						<tr>
-							<td>${item.oeuvrevente.titreOeuvre}</td>
-							<td>${item.adherent.nomAdherent} ${item.adherent.prenomAdherent}</td>
-							<td><fmt:formatDate value="${item.date}" pattern="dd / MM / yyyy" /></td>
+							<td>TODO</td>
+							<td>TODO</td>
+							<td><fmt:formatDate value="${item.dateReservation}" pattern="dd / MM / yyyy" /></td>
 			                <td class="actionCol">
-			                	<a type="button" class="btn self-border" title="Modifier" href="Reservation?action=modifier&idOeuvre=${item.oeuvrevente.idOeuvre}&idAdherent=${item.adherent.idAdherent}">
+			                	<a type="button" class="btn self-border" title="Modifier" href="Reservation/modifier/item.oeuvrevente.idOeuvrevente/item.adherent.idAdherent">
 			               			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 			               		</a>
-			               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="${item.oeuvrevente.idOeuvre}" data-id2="${item.adherent.idAdherent}" data-toggle="modal" data-target="#confirmationModal">
+			               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="TODO" data-id2="TODO" data-toggle="modal" data-target="#confirmationModal">
 			                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 			                	</a>
 		                	</td>
