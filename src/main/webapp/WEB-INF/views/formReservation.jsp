@@ -60,7 +60,7 @@
 				<div class="form-group">
 					<label for="datepicker" class="col-sm-2 control-label">Date</label>
 					<div class="col-sm-10">
-						<fmt:formatDate var="fmtDate" value="${reservation.date}" pattern="dd/MM/yyyy"/>
+						<fmt:formatDate var="fmtDate" value="${reservation.dateReservation}" pattern="dd/MM/yyyy"/>
 						<input type="text" name="txtDate" id="datepicker" value="${fmtDate}">
 					</div>
 				</div>

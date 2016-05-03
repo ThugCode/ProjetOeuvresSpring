@@ -27,13 +27,15 @@
 							<td>${item.adherent.nomAdherent} ${item.adherent.prenomAdherent}</td>
 							<td><fmt:formatDate value="${item.dateReservation}" pattern="dd / MM / yyyy" /></td>
 						        <td class="actionCol">
-							     	<a type="button" class="btn self-border" title="Modifier" href="Reservation/modifier/${item.oeuvrevente.idOeuvrevente}/${item.adherent.idAdherent}">
-									               			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-									               		</a>
-									               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="${item.oeuvrevente.idOeuvrevente}" data-id2="${item.adherent.idAdherent}" data-toggle="modal" data-target="#confirmationModal">
-									                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-									                	</a>
-								                	</td>
+							     	<a type="button" class="btn self-border btn-update-reservation" title="Modifier" 
+							     	data-idoeuvrevente="${item.oeuvrevente.idOeuvrevente}" 
+							     	data-idadherent="${item.adherent.idAdherent}">
+				               			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+				               		</a>
+				               		<a type="button" class="btn btndel self-border" title="Supprimer" data-id="${item.oeuvrevente.idOeuvrevente}" data-id2="${item.adherent.idAdherent}" data-toggle="modal" data-target="#confirmationModal">
+				                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				                	</a>
+			                	</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty reservations}">
@@ -43,6 +45,11 @@
 		
 			</jsp:body>
 		</t:liste>
+
+		<form id="updateForm" class="form-horizontal" method="post" action="modifier">
+			<input type="hidden" name="idAdherent" class="form-control" id="idAdherent">
+			<input type="hidden" name="idOeuvrevente" class="form-control" id="idOeuvrevente">
+		</form>
 		
 		<t:modal modalTitle="Confirmation" modalAccept="Valider" modalId="confirmationModal" modalAction="confirmDelete()">
 			<jsp:body>

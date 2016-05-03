@@ -75,7 +75,7 @@ public class ReservationControleur extends MultiActionController {
 			request.setAttribute("currentNumberPerPage", nombreParPage);
 			request.setAttribute("vue", LISTE);
 			request.setAttribute("tabTitle", "Liste des réservations");
-			//request.setAttribute("module", LISTE+RESERVTION);
+			request.setAttribute("module", LISTE+RESERVATION);
 			
 			ReservationService service = new ReservationService();
 			List<Reservation> listeTotal = service.consulterListeReservations();
@@ -166,40 +166,35 @@ public class ReservationControleur extends MultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = RESERVATION+"/"+MODIFIER+"/{idOeuvrevente}/{idAdherent}")
-	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("idOeuvrevente")int idOeuvrevente, 
-			@PathVariable("idAdherent")int idAdherent) throws Exception {
+	@RequestMapping(value = RESERVATION+"/"+MODIFIER)
+	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = FORM+RESERVATION;
-		try {
-			
-			AdherentService aService = new AdherentService();
-			List<Adherent> adherents;
-			adherents = aService.consulterListeAdherents();
-			request.setAttribute("adherents", adherents);
-			
-			OeuvreVenteService oService = new OeuvreVenteService();
-			List<Oeuvrevente> oeuvres;
-			oeuvres = oService.consulterListeOeuvresVentes();
-			request.setAttribute("oeuvres", oeuvres);
-			
-			Oeuvrevente oeuvre = oService.consulterOeuvrevente(idOeuvrevente);
-			request.setAttribute("oeuvre", oeuvre);
-			
-			ReservationService service = new ReservationService();
-			Reservation reservationAModifier = service.consulterReservation(idOeuvrevente, idAdherent);
-			
-			request.setAttribute("reservation", reservationAModifier);
-			request.setAttribute("tabTitle", "Modification reservation");
-			request.setAttribute("module", FORM+RESERVATION);
-			request.setAttribute("vue", FORM);
-			request.setAttribute("action", "Modifier");
-		} catch (Exception e) {
-			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
-		}
-
+		
+		AdherentService aService = new AdherentService();
+		List<Adherent> adherents;
+		adherents = aService.consulterListeAdherents();
+		request.setAttribute("adherents", adherents);
+		
+		OeuvreVenteService oService = new OeuvreVenteService();
+		List<Oeuvrevente> oeuvres;
+		oeuvres = oService.consulterListeOeuvresVentes();
+		request.setAttribute("oeuvres", oeuvres);
+		
+		Oeuvrevente oeuvre = oService.consulterOeuvrevente(Integer.parseInt(request.getParameter("idOeuvrevente").toString()));
+		request.setAttribute("oeuvre", oeuvre);
+		
+		ReservationService service = new ReservationService();
+		Reservation reservationAModifier = service.consulterReservation(
+				Integer.parseInt(request.getParameter("idOeuvrevente").toString()), 
+				Integer.parseInt(request.getParameter("idAdherent").toString()));
+		
+		request.setAttribute("reservation", reservationAModifier);
+		request.setAttribute("tabTitle", "Modification reservation");
+		request.setAttribute("module", FORM+RESERVATION);
+		request.setAttribute("vue", FORM);
+		request.setAttribute("action", "Modifier");
+		
 		return new ModelAndView(destinationPage);
 	}
 	

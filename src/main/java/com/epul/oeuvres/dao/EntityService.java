@@ -8,9 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.epul.oeuvres.meserreurs.MonException;
-import com.epul.oeuvres.metier.Adherent;
-
 public abstract class EntityService
 {
 	protected EntityManager entitymanager;

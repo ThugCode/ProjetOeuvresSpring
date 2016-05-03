@@ -36,7 +36,6 @@
 		<input type="hidden" name="idSelected" class="form-control" id="idSelected">
 		<input type="hidden" name="idSelected2" class="form-control" id="idSelected2">
 	</form>
-				
 	
 	<div class="table-body table-white">
 		<jsp:doBody/>
