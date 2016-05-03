@@ -22,7 +22,15 @@ public class ReservationService extends EntityService {
 	 */
 	public void insertReservation(Reservation reservation) throws MonException {
 		
-		
+		EntityTransaction transac = startTransaction();
+		transac.begin();
+		ReservationPK cle = new ReservationPK();
+		cle.setIdOeuvrevente(reservation.getOeuvrevente().getIdOeuvrevente());
+		cle.setIdAdherent(reservation.getAdherent().getIdAdherent());
+		reservation.setId(cle);
+		entitymanager.persist(reservation);
+		transac.commit();
+		entitymanager.close();
 	}
 	
 	/**
@@ -31,8 +39,9 @@ public class ReservationService extends EntityService {
 	 * @param adherent
 	 * @throws MonException
 	 */
-	public void updateReservation(Reservation reservation, int oldOeuvre, int oldAdherent) throws MonException {
+	public void updateReservation(Reservation reservation) throws MonException {
 		
+		this.update(reservation);
 	}
 	
 	/**

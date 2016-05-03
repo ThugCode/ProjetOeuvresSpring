@@ -52,7 +52,6 @@ public class OeuvreVenteControleur extends MultiActionController {
 	@RequestMapping(value = OEUVREVENTE+"/")
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = LISTE+OEUVREVENTE;
 		try {
 			
 			page = 1;
@@ -88,9 +87,9 @@ public class OeuvreVenteControleur extends MultiActionController {
 			
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
+			return new ModelAndView("erreur");
 		}
-		return new ModelAndView(destinationPage);
+		return new ModelAndView(LISTE+OEUVREVENTE);
 	}
 	
 	/**
@@ -103,7 +102,6 @@ public class OeuvreVenteControleur extends MultiActionController {
 	@RequestMapping(value = OEUVREVENTE+"/"+AJOUTER)
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = FORM+OEUVREVENTE;
 		try {
 			request.setAttribute("tabTitle", "Nouvelle oeuvre à vendre");
 			request.setAttribute("module", FORM+OEUVREVENTE);
@@ -117,10 +115,10 @@ public class OeuvreVenteControleur extends MultiActionController {
 			
 		} catch (Exception e) {
 			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
+			return new ModelAndView("erreur");
 		}
 
-		return new ModelAndView(destinationPage);
+		return new ModelAndView(FORM+OEUVREVENTE);
 	}
 	
 	/**
@@ -133,7 +131,6 @@ public class OeuvreVenteControleur extends MultiActionController {
 	@RequestMapping(value = OEUVREVENTE+"/"+MODIFIER+"/{idOeuvreVente}")
 	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("idOeuvreVente")int idOeuvreVente) throws Exception {
 
-		String destinationPage = FORM+OEUVREVENTE;
 		try {
 			ProprietaireService service = new ProprietaireService();
 			List<Proprietaire> liste = service.consulterListeProprietaires();
@@ -148,10 +145,10 @@ public class OeuvreVenteControleur extends MultiActionController {
 			request.setAttribute("action", "Modifier");
 		} catch (Exception e) {
 			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
+			return new ModelAndView("erreur");
 		}
 
-		return new ModelAndView(destinationPage);
+		return new ModelAndView(FORM+OEUVREVENTE);
 	}
 
 	/**
@@ -164,7 +161,6 @@ public class OeuvreVenteControleur extends MultiActionController {
 	@RequestMapping(value = OEUVREVENTE+"/"+INSERER)
 	public ModelAndView insertNewObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String destinationPage = "/"+OEUVREVENTE+"/";
 		try {
 			
 			OeuvreVenteService service = new OeuvreVenteService();
@@ -197,10 +193,10 @@ public class OeuvreVenteControleur extends MultiActionController {
 			
 		} catch (Exception e) {
 			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
+			return new ModelAndView("erreur");
 		}
 		
-		return new ModelAndView("redirect:"+destinationPage);
+		return new ModelAndView("redirect:/"+OEUVREVENTE+"/");
 	}
 	
 	/**
@@ -213,16 +209,15 @@ public class OeuvreVenteControleur extends MultiActionController {
 	@RequestMapping(value = OEUVREVENTE+"/"+SUPPRIMER)
 	protected ModelAndView deleteObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = "/"+OEUVREVENTE+"/";
 		try {
 			OeuvreVenteService service = new OeuvreVenteService();
 			int id = Integer.parseInt(request.getParameter("idSelected"));
 			service.deleteOeuvreVente(id);
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
+			return new ModelAndView("erreur");
 		}
 		
-		return new ModelAndView("redirect:"+destinationPage);
+		return new ModelAndView("redirect:/"+OEUVREVENTE+"/");
 	}
 }

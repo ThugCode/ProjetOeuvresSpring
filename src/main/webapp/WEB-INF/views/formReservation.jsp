@@ -65,19 +65,30 @@
 					</div>
 				</div>
 				
-				<div class="form-group">
-					<label for="adherents" class="col-sm-2 control-label">Adhérent</label>
+				<c:choose> 
+  				<c:when test="${adherents != null}">
+					<div class="form-group">
+						<label for="adherents" class="col-sm-2 control-label">Adhérent</label>
+						<div class="col-sm-10">
+							<select class="form-control" name="idAdherent" id="adherents">
+								<option value="-1" selected disabled>Sélectionnez un adhérent</option>
+							<c:forEach items="${adherents}" var="item">
+			  					<option ${item.idAdherent == reservation.adherent.idAdherent ? 'selected' : '' }
+			  					 value="${item.idAdherent}">${item.nomAdherent} ${item.prenomAdherent}</option>
+							</c:forEach>
+							</select>
+						</div>
+					</div>
+				</c:when>
+  				<c:otherwise>
+  					<div class="form-group">
+					<label for="nomAdherent" class="col-sm-2 control-label">Adhérent</label>
 					<div class="col-sm-10">
-						<select class="form-control" name="idAdherent" id="adherents">
-							<option value="-1" selected disabled>Sélectionnez un adhérent</option>
-						<c:forEach items="${adherents}" var="item">
-		  					<option ${item.idAdherent == reservation.adherent.idAdherent ? 'selected' : '' }
-		  					 value="${item.idAdherent}">${item.nomAdherent} ${item.prenomAdherent}</option>
-						</c:forEach>
-						</select>
+						<label class="form-control" id="nomAdherent">${reservation.adherent.nomAdherent} ${reservation.adherent.prenomAdherent}</label>
 					</div>
 				</div>
-			
+  				</c:otherwise>
+				</c:choose>
 			</jsp:body>
 		</t:form>
 	

@@ -57,7 +57,6 @@ public class ReservationControleur extends MultiActionController {
 	@RequestMapping(value = RESERVATION+"/")
 	public ModelAndView displayListe(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = LISTE+RESERVATION;
 		try {
 			
 			page = 1;
@@ -93,10 +92,10 @@ public class ReservationControleur extends MultiActionController {
 			
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
+			return new ModelAndView("erreur");
 
 		}
-		return new ModelAndView(destinationPage);
+		return new ModelAndView(LISTE+RESERVATION);
 	}
 	
 	/**
@@ -133,7 +132,6 @@ public class ReservationControleur extends MultiActionController {
 	
 	public ModelAndView displayAddForm(HttpServletRequest request, HttpServletResponse response, Oeuvrevente oeuvre) throws Exception {
 
-		String destinationPage = FORM+RESERVATION;
 		try {
 			
 			request.setAttribute("tabTitle", "Nouvelle réservation");
@@ -153,10 +151,10 @@ public class ReservationControleur extends MultiActionController {
 			
 		} catch (Exception e) {
 			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
+			return new ModelAndView("erreur");
 		}
 
-		return new ModelAndView(destinationPage);
+		return new ModelAndView(FORM+RESERVATION);
 	}
 	
 	/**
@@ -168,34 +166,28 @@ public class ReservationControleur extends MultiActionController {
 	 */
 	@RequestMapping(value = RESERVATION+"/"+MODIFIER)
 	public ModelAndView displayUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		String destinationPage = FORM+RESERVATION;
 		
-		AdherentService aService = new AdherentService();
-		List<Adherent> adherents;
-		adherents = aService.consulterListeAdherents();
-		request.setAttribute("adherents", adherents);
-		
-		OeuvreVenteService oService = new OeuvreVenteService();
-		List<Oeuvrevente> oeuvres;
-		oeuvres = oService.consulterListeOeuvresVentes();
-		request.setAttribute("oeuvres", oeuvres);
-		
-		Oeuvrevente oeuvre = oService.consulterOeuvrevente(Integer.parseInt(request.getParameter("idOeuvrevente").toString()));
-		request.setAttribute("oeuvre", oeuvre);
-		
-		ReservationService service = new ReservationService();
-		Reservation reservationAModifier = service.consulterReservation(
-				Integer.parseInt(request.getParameter("idOeuvrevente").toString()), 
-				Integer.parseInt(request.getParameter("idAdherent").toString()));
-		
-		request.setAttribute("reservation", reservationAModifier);
-		request.setAttribute("tabTitle", "Modification reservation");
-		request.setAttribute("module", FORM+RESERVATION);
-		request.setAttribute("vue", FORM);
-		request.setAttribute("action", "Modifier");
-		
-		return new ModelAndView(destinationPage);
+		try {
+			OeuvreVenteService oService = new OeuvreVenteService();
+			Oeuvrevente oeuvre = oService.consulterOeuvrevente(
+					Integer.parseInt(request.getParameter("idOeuvrevente").toString()));
+			request.setAttribute("oeuvre", oeuvre);
+			
+			ReservationService service = new ReservationService();
+			Reservation reservationAModifier = service.consulterReservation(
+					Integer.parseInt(request.getParameter("idOeuvrevente").toString()), 
+					Integer.parseInt(request.getParameter("idAdherent").toString()));
+			
+			request.setAttribute("reservation", reservationAModifier);
+			request.setAttribute("tabTitle", "Modification reservation");
+			request.setAttribute("module", FORM+RESERVATION);
+			request.setAttribute("vue", FORM);
+			request.setAttribute("action", "Modifier");
+		} catch (MonException e) {
+			request.setAttribute("messageErreur", e.getMessage());
+			return new ModelAndView("erreur");
+		}
+		return new ModelAndView(FORM+RESERVATION);
 	}
 	
 	/**
@@ -207,10 +199,8 @@ public class ReservationControleur extends MultiActionController {
 	 */
 	@RequestMapping(value = RESERVATION+"/"+INSERER)
 	public ModelAndView insertNewObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		String destinationPage = "/"+RESERVATION+"/";
 		
-			
+		try {
 			ReservationService service = new ReservationService();
 			boolean ajout = false;
 			Reservation reservation = null;
@@ -227,12 +217,6 @@ public class ReservationControleur extends MultiActionController {
 				reservation = new Reservation();
 			}
 			
-			OeuvreVenteService oService = new OeuvreVenteService();
-			Oeuvrevente oeuvre = oService.consulterOeuvrevente(Integer.parseInt(request.getParameter("idOeuvre").toString()));
-			
-			AdherentService aService = new AdherentService();
-			Adherent adherent = aService.consulterAdherent(Integer.parseInt(request.getParameter("idAdherent").toString()));
-			
 			Date date = null;
 			try {
 				date = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("txtDate"));
@@ -240,21 +224,37 @@ public class ReservationControleur extends MultiActionController {
 				e.printStackTrace();
 			} 
 			
-			reservation.setAdherent(adherent);
-			reservation.setOeuvrevente(oeuvre);
 			reservation.setDateReservation(date);
 			reservation.setStatut("confirmee");
 			
 			if(ajout) {
+				
+				OeuvreVenteService oService = new OeuvreVenteService();
+				Oeuvrevente oeuvre = oService.consulterOeuvrevente(Integer.parseInt(request.getParameter("idOeuvre").toString()));
+				reservation.setOeuvrevente(oeuvre);
+				
+				AdherentService aService = new AdherentService();
+				Adherent adherent = aService.consulterAdherent(Integer.parseInt(request.getParameter("idAdherent").toString()));
+				reservation.setAdherent(adherent);
+				
+				if(service.consulterReservation(
+						reservation.getOeuvrevente().getIdOeuvrevente(), 
+						reservation.getAdherent().getIdAdherent()) != null) {
+					request.setAttribute("messageErreur", "Réservation déjà effective pour cette oeuvre et cette personne");
+					return new ModelAndView("erreur");
+				}
+				
 				service.insertReservation(reservation);
 			} else {
-				int oldOeuvre = Integer.parseInt(request.getParameter("oldOeuvre").toString());
-				int oldAdherent = Integer.parseInt(request.getParameter("oldAdherent").toString());
-				service.updateReservation(reservation, oldOeuvre, oldAdherent);
+				service.updateReservation(reservation);
 			}
-			
 		
-		return new ModelAndView("redirect:"+destinationPage);
+		} catch (MonException e) {
+			request.setAttribute("messageErreur", e.getMessage());
+			return new ModelAndView("erreur");
+		}
+		
+		return new ModelAndView("redirect:/"+RESERVATION+"/");
 	}
 	
 	/**
@@ -267,18 +267,16 @@ public class ReservationControleur extends MultiActionController {
 	@RequestMapping(value = RESERVATION+"/"+SUPPRIMER)
 	protected ModelAndView deleteObject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String destinationPage = "/"+RESERVATION+"/";
 		try {
 			ReservationService service = new ReservationService();
 			int idOeuvre = Integer.parseInt(request.getParameter("idSelected"));
 			int idAdherent = Integer.parseInt(request.getParameter("idSelected2"));
 			service.deleteReservation(idOeuvre, idAdherent);
-			
 		} catch (MonException e) {
 			request.setAttribute("messageErreur", e.getMessage());
-			destinationPage = "erreur";
+			return new ModelAndView("erreur");
 		}
 		
-		return new ModelAndView("redirect:"+destinationPage);
+		return new ModelAndView("redirect:/"+RESERVATION+"/");
 	}
 }
